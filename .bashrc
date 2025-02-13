@@ -1,36 +1,10 @@
-# ~/.bashrc: executed by bash(1) for non-login shells.
-# see /usr/share/doc/bash/examples/startup-files (in the package bash-doc)
-# for examples
+# Alias definitions.
+# You may want to put all your additions into a separate file like
+# ~/.bash_aliases, instead of adding them here directly.
+# See /usr/share/doc/bash-doc/examples in the bash-doc package.
 
-# Source global definitions
-if [ -f /etc/bashrc ]; then
-        . /etc/bashrc
-fi
-
-# If not running interactively, don't do anything
-# [ -z "$PS1" ] && return
-
-# don't put duplicate lines in the history. See bash(1) for more options
-# ... or force ignoredups and ignorespace
-HISTCONTROL=ignoredups:ignorespace
-
-# append to the history file, don't overwrite it
-shopt -s histappend
-
-# for setting history length see HISTSIZE and HISTFILESIZE in bash(1)
-HISTSIZE=1000
-HISTFILESIZE=2000
-
-# check the window size after each command and, if necessary,
-# update the values of LINES and COLUMNS.
-shopt -s checkwinsize
-
-# make less more friendly for non-text input files, see lesspipe(1)
-[ -x /usr/bin/lesspipe ] && eval "$(SHELL=/bin/sh lesspipe)"
-
-# set variable identifying the chroot you work in (used in the prompt below)
-if [ -z "$debian_chroot" ] && [ -r /etc/debian_chroot ]; then
-    debian_chroot=$(cat /etc/debian_chroot)
+if [ -f ~/.bash_aliases ]; then
+    . ~/.bash_aliases
 fi
 
 # enable programmable completion features (you don't need to enable
@@ -40,27 +14,20 @@ if [ -f /etc/bash_completion ] && ! shopt -oq posix; then
     . /etc/bash_completion
 fi
 
+
 # User specific environment and startup programs
 
-PATH=$PATH:$HOME/bin
-# BASH_ENV=$HOME/.bashrc
-EDITOR=nano
+PATH=$PATH:$HOME/bin:/usr/pkg/libexec/git-core
+BASH_ENV=$HOME/.bashrc
+EDITOR=pico
 USERNAME=$USER
 TZ="/usr/share/zoneinfo/CST6CDT"
 
-IRCHOST=parts.unknown.com
-IRCNAME='William Stone III'
-IRCNICK=WRStone
-IRCSERVER=irc.freenode.net
-
-DEBFULLNAME="William Stone III"
-DEBEMAIL="wrs@wrstone.com"
-
-export USERNAME PATH EDITOR TZ IRCHOST IRCNAME IRCNICK IRCSERVER DEBFULLNAME DEBEMAIL
+export USERNAME BASH_ENV PATH EDITOR TZ
 
 case `uname -m` in
-	alpha) export PATH=$PATH:$HOME/bin/alpha ;; 
-	amd64) export PATH=$PATH:$HOME/bin/amd64 ;;
+        alpha) export PATH=$PATH:$HOME/bin/alpha ;;
+        amd64) export PATH=$PATH:$HOME/bin/amd64 ;;
 esac
 
 ##################################################
@@ -141,55 +108,20 @@ PROMPT_COMMAND=bash_prompt_command
 bash_prompt
 unset bash_prompt
 
-# If this is an xterm set the title to user@host:dir
-case "$TERM" in
-xterm*|rxvt*)
-    PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
-    ;;
-*)
-    ;;
-esac
+# User specific aliases and functions
 
-# Alias definitions.
-# You may want to put all your additions into a separate file like
-# ~/.bash_aliases, instead of adding them here directly.
-# See /usr/share/doc/bash-doc/examples in the bash-doc package.
-
-if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
-fi
-
-# enable color support of ls and also add handy aliases
-if [ -x /usr/bin/dircolors ]; then
-    test -r ~/.dircolors && eval "$(dircolors -b ~/.dircolors)" || eval "$(dircolors -b)"
-    alias ls='ls --color=auto'
-    alias dir='dir --color=auto'
-    alias vdir='vdir --color=auto'
-
-    alias grep='grep --color=auto'
-    alias fgrep='fgrep --color=auto'
-    alias egrep='egrep --color=auto'
-fi
-
-# User-specific aliases and functions
-alias ll='ls -alF'
-alias la='ls -A'
-# alias l='ls -CF'
 alias rm='rm -i'
 alias cp='cp -i'
 alias mv='mv -i'
 alias l='ls -al'
-# alias dir='ls -al'
 alias copy='cp'
 alias md='mkdir'
 alias rd='rmdir'
 alias cls='clear'
 alias whos='who | sort | less'
 alias ssh='ssh -C -X'
-alias nano='nano -w'
-alias l6='ssh -C -X -6 wrstone@liberty.wrstone.com'
-alias l4='ssh -C -X wrstone@liberty.wrstone.com'
+alias sdfhelp='/usr/pkg/bin/help'
 
-# Add an "alert" alias for long running commands.  Use like so:
-#   sleep 10; alert
-alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
+echo
+/usr/games/fortune startrek
+echo
